@@ -24,11 +24,29 @@ def _load_abcde(fp):
     return config
 
 
+"""Load configuration files with sane fallbacks for container platforms."""
+
+# Ensure config directory exists; if not, create and seed defaults
+try:
+    os.makedirs(CONFIG_LOCATION, exist_ok=True)
+except Exception:
+    pass
+
 # arm config, open and read yaml contents
 # handle arm.yaml migration here
 # 1. Load both current and template arm.yaml
-cur_cfg = _load_config(arm_config_path)
-new_cfg = _load_config("/opt/arm/setup/arm.yaml")
+default_cfg_path = "/opt/arm/setup/arm.yaml"
+try:
+    cur_cfg = _load_config(arm_config_path)
+except Exception:
+    # Seed from default if missing
+    cur_cfg = _load_config(default_cfg_path)
+    try:
+        with open(arm_config_path, "w") as settings_file:
+            settings_file.write(open(default_cfg_path, "r").read())
+    except Exception:
+        pass
+new_cfg = _load_config(default_cfg_path)
 
 # 2. If the dicts do not have the same number of keys
 if len(cur_cfg) != len(new_cfg):
@@ -67,7 +85,13 @@ if len(cur_cfg) != len(new_cfg):
 arm_config = _load_config(arm_config_path)
 
 # abcde config file, open and read contents
-abcde_config = _load_abcde(abcde_config_path)
+try:
+    abcde_config = _load_abcde(abcde_config_path)
+except Exception:
+    abcde_config = ""
 
 # apprise config, open and read yaml contents
-apprise_config = _load_config(apprise_config_path)
+try:
+    apprise_config = _load_config(apprise_config_path)
+except Exception:
+    apprise_config = {}

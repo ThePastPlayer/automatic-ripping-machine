@@ -68,6 +68,22 @@ See: https://b3n.org/automatic-ripping-machine
 
 [For docker installation please see here](https://github.com/automatic-ripping-machine/automatic-ripping-machine/wiki/docker).
 
+### Run the UI locally or on platforms like Dokploy
+
+ARM includes a small web UI served by Waitress. You can run it with:
+
+```
+python arm/runui.py
+```
+
+The server listens on `WEBSERVER_PORT` from `setup/arm.yaml`. If a `PORT` environment variable is present (e.g., Dokploy/Heroku), it will use that instead.
+
+For platforms that use Procfile/Nixpacks, a `Procfile` is provided:
+
+```
+web: python arm/runui.py
+```
+
 ## Troubleshooting
  [Please see the wiki for troubleshooting](https://github.com/automatic-ripping-machine/automatic-ripping-machine/wiki/).
 

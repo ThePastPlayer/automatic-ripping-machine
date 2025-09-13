@@ -57,7 +57,8 @@ def get_host():
 # Higher thread count to accommodate slow blocking processes when the UI is polling the ripper during ripping
 if __name__ == '__main__':
     host = get_host()
-    port = cfg.arm_config['WEBSERVER_PORT']
+    # Prefer platform-provided PORT (Dokploy/Heroku style). Fallback to config.
+    port = int(os.environ.get('PORT', cfg.arm_config['WEBSERVER_PORT']))
     app.logger.info("Starting ARM-UI on interface address - %s:%s", host, port)
     startup()
     from waitress import serve
