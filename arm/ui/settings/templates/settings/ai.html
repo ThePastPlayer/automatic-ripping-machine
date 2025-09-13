@@ -1,0 +1,102 @@
+{% block ai %}
+    <div class="tab-pane pt-5" id="aiTab" role="tabpanel" aria-labelledby="ai-tab">
+        <h4> AI & Metadata Settings </h4>
+        <form id="uiSettings" name="uiSettings" action="">
+            {{ form.hidden_tag() }}
+
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <span class="input-group-text" id="openai_api_key">OPENAI_API_KEY: </span>
+                </div>
+                <input type="password" class="form-control" aria-label="openai_api_key"
+                       name="openai_api_key" placeholder="sk-..." value="{{ ui_settings.openai_api_key|mask_last }}"
+                       aria-describedby="openai_api_key">
+                <a class="popovers" onClick='return false;' href=""
+                   data-content="OpenAI API key used for Vision OCR/identification. Stored server-side." rel="popover"
+                   data-placement="top" data-original-title="OpenAI API Key">
+                    <img title="More information" src="{{ url_for('static', filename='img/info.png') }}" width="30px"
+                         height="35px" alt="More info">
+                </a>
+            </div>
+
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <span class="input-group-text" id="enable_ai_identification">Enable AI identification: </span>
+                </div>
+                <select class="form-control" name="enable_ai_identification" aria-describedby="enable_ai_identification">
+                    <option value="true" {% if ui_settings.enable_ai_identification %}selected{% endif %}>True</option>
+                    <option value="false" {% if not ui_settings.enable_ai_identification %}selected{% endif %}>False</option>
+                </select>
+            </div>
+
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <span class="input-group-text" id="enable_cd_track_renaming">Enable CD track renaming: </span>
+                </div>
+                <select class="form-control" name="enable_cd_track_renaming" aria-describedby="enable_cd_track_renaming">
+                    <option value="true" {% if ui_settings.enable_cd_track_renaming %}selected{% endif %}>True</option>
+                    <option value="false" {% if not ui_settings.enable_cd_track_renaming %}selected{% endif %}>False</option>
+                </select>
+            </div>
+
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <span class="input-group-text" id="min_clip_duration_seconds">Minimum clip duration (seconds): </span>
+                </div>
+                <input type="number" class="form-control" aria-label="min_clip_duration_seconds"
+                       name="min_clip_duration_seconds" placeholder="300" value="{{ ui_settings.min_clip_duration_seconds or 300 }}"
+                       aria-describedby="min_clip_duration_seconds">
+            </div>
+
+            <hr>
+            <h5> Optional External Metadata Keys </h5>
+
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <span class="input-group-text" id="tmdb_api_key">TMDB API Key: </span>
+                </div>
+                <input type="password" class="form-control" aria-label="tmdb_api_key"
+                       name="tmdb_api_key" placeholder="" value="{{ ui_settings.tmdb_api_key|mask_last }}"
+                       aria-describedby="tmdb_api_key">
+            </div>
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <span class="input-group-text" id="omdb_api_key">OMDb API Key: </span>
+                </div>
+                <input type="password" class="form-control" aria-label="omdb_api_key"
+                       name="omdb_api_key" placeholder="" value="{{ ui_settings.omdb_api_key|mask_last }}"
+                       aria-describedby="omdb_api_key">
+            </div>
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <span class="input-group-text" id="musicbrainz_useragent">MusicBrainz User-Agent: </span>
+                </div>
+                <input type="text" class="form-control" aria-label="musicbrainz_useragent"
+                       name="musicbrainz_useragent" placeholder="app/1.0 ( you@example.com )" value="{{ ui_settings.musicbrainz_useragent }}"
+                       aria-describedby="musicbrainz_useragent">
+            </div>
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <span class="input-group-text" id="musicbrainz_contact">MusicBrainz Contact: </span>
+                </div>
+                <input type="text" class="form-control" aria-label="musicbrainz_contact"
+                       name="musicbrainz_contact" placeholder="you@example.com" value="{{ ui_settings.musicbrainz_contact }}"
+                       aria-describedby="musicbrainz_contact">
+            </div>
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <span class="input-group-text" id="discogs_token">Discogs Token: </span>
+                </div>
+                <input type="password" class="form-control" aria-label="discogs_token"
+                       name="discogs_token" placeholder="" value="{{ ui_settings.discogs_token|mask_last }}"
+                       aria-describedby="discogs_token">
+            </div>
+
+            <div class="text-right">
+                <button class="btn btn-primary" type="submit">Save</button>
+            </div>
+        </form>
+    </div>
+{% endblock %}
+
+

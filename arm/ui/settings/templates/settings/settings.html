@@ -72,6 +72,10 @@
                                aria-controls="appriseTab" aria-selected="false">Apprise config</a>
                         </li>
                         <li class="nav-item" role="presentation">
+                            <a class="nav-link" id="ai-tab" data-toggle="tab" href="#aiTab" role="tab"
+                               aria-controls="aiTab" aria-selected="false">AI & Metadata</a>
+                        </li>
+                        <li class="nav-item" role="presentation">
                             <a class="nav-link" id="help-tab" data-toggle="tab" href="#help"
                                role="tab"
                                aria-controls="help" aria-selected="false">Help</a>
@@ -92,6 +96,8 @@
                         {% include 'settings/ui.html' %}
                         <!-- Apprise config -->
                         {% include 'settings/apprise.html' %}
+                        <!-- AI & Metadata settings -->
+                        {% include 'settings/ai.html' %}
                         <!-- Help config -->
                         {% include 'settings/help.html' %}
                     </div>

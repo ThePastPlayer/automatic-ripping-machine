@@ -259,6 +259,21 @@ def get_track_info(srcpath, job):
         aspect = 0
         result = None
         main_feature = False
+        min_duration = None
+        try:
+            # Pull min duration from UI settings if present
+            min_duration = int(getattr(job.config, 'MIN_CLIP_DURATION', 0)) if hasattr(job, 'config') else None
+        except Exception:
+            min_duration = None
+        # Fallback to UI settings table if available
+        try:
+            from arm.models.ui_settings import UISettings
+            ui_cfg = UISettings.query.get(1)
+            if ui_cfg and ui_cfg.min_clip_duration_seconds:
+                min_duration = ui_cfg.min_clip_duration_seconds
+        except Exception:
+            pass
+
         for line in hand_break_output:
 
             # get number of titles
@@ -283,6 +298,15 @@ def get_track_info(srcpath, job):
                 aspect = str(aspect).replace(",", "")
     else:
         logging.info("HandBrake unable to get track information")
+        # Apply minimum clip duration filtering if configured
+        if min_duration and isinstance(min_duration, int) and min_duration > 0:
+            try:
+                if seconds < int(min_duration):
+                    # Skip very short titles (logos/tests)
+                    logging.info(f"Skipping title {t_no} with duration {seconds}s below min {min_duration}s")
+                    return
+            except Exception:
+                pass
 
     utils.put_track(job, t_no, seconds, aspect, fps, main_feature, "HandBrake")
 

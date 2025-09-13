@@ -13,10 +13,24 @@ class UISettings(db.Model):
     index_refresh = db.Column(db.Integer)
     database_limit = db.Column(db.Integer)
     notify_refresh = db.Column(db.Integer)
+    # AI & Metadata settings
+    openai_api_key = db.Column(db.String(256))
+    tmdb_api_key = db.Column(db.String(128))
+    omdb_api_key = db.Column(db.String(128))
+    musicbrainz_useragent = db.Column(db.String(128))
+    musicbrainz_contact = db.Column(db.String(128))
+    discogs_token = db.Column(db.String(128))
+    enable_ai_identification = db.Column(db.Boolean, default=False)
+    enable_cd_track_renaming = db.Column(db.Boolean, default=False)
+    min_clip_duration_seconds = db.Column(db.Integer, default=300)
 
     def __init__(self, use_icons=None, save_remote_images=None,
                  bootstrap_skin=None, language=None, index_refresh=None,
-                 database_limit=None, notify_refresh=None):
+                 database_limit=None, notify_refresh=None,
+                 openai_api_key=None, tmdb_api_key=None, omdb_api_key=None,
+                 musicbrainz_useragent=None, musicbrainz_contact=None, discogs_token=None,
+                 enable_ai_identification=False, enable_cd_track_renaming=False,
+                 min_clip_duration_seconds=300):
         self.use_icons = use_icons
         self.save_remote_images = save_remote_images
         self.bootstrap_skin = bootstrap_skin
@@ -24,6 +38,15 @@ class UISettings(db.Model):
         self.index_refresh = index_refresh
         self.database_limit = database_limit
         self.notify_refresh = notify_refresh
+        self.openai_api_key = openai_api_key
+        self.tmdb_api_key = tmdb_api_key
+        self.omdb_api_key = omdb_api_key
+        self.musicbrainz_useragent = musicbrainz_useragent
+        self.musicbrainz_contact = musicbrainz_contact
+        self.discogs_token = discogs_token
+        self.enable_ai_identification = enable_ai_identification
+        self.enable_cd_track_renaming = enable_cd_track_renaming
+        self.min_clip_duration_seconds = min_clip_duration_seconds
 
     def __repr__(self):
         return f'<UISettings {self.id}>'

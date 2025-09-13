@@ -143,7 +143,12 @@ class Job(db.Model):
         self.updated = False
         if cfg.arm_config['VIDEOTYPE'] != "auto":
             self.video_type = cfg.arm_config['VIDEOTYPE']
-        self.parse_udev()
+        # Allow placeholder jobs without a real device (e.g., AI onboarding)
+        try:
+            self.parse_udev()
+        except Exception:
+            logging.debug("parse_udev failed; creating placeholder job without device context")
+            self.disctype = "unknown"
         self.get_pid()
         self.stage = str(round(time.time() * 100))
         self.manual_start = False

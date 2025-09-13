@@ -222,6 +222,32 @@ def save_ui_settings():
         arm_ui_cfg.language = format(form.language.data)
         arm_ui_cfg.database_limit = format(form.database_limit.data)
         arm_ui_cfg.notify_refresh = format(form.notify_refresh.data)
+        # AI & Metadata settings
+        if hasattr(form, 'openai_api_key'):
+            # Only update if provided to avoid accidental blanking
+            if form.openai_api_key.data is not None and form.openai_api_key.data != "":
+                arm_ui_cfg.openai_api_key = str(form.openai_api_key.data)
+        if hasattr(form, 'tmdb_api_key'):
+            if form.tmdb_api_key.data is not None and form.tmdb_api_key.data != "":
+                arm_ui_cfg.tmdb_api_key = str(form.tmdb_api_key.data)
+        if hasattr(form, 'omdb_api_key'):
+            if form.omdb_api_key.data is not None and form.omdb_api_key.data != "":
+                arm_ui_cfg.omdb_api_key = str(form.omdb_api_key.data)
+        if hasattr(form, 'musicbrainz_useragent'):
+            if form.musicbrainz_useragent.data is not None and form.musicbrainz_useragent.data != "":
+                arm_ui_cfg.musicbrainz_useragent = str(form.musicbrainz_useragent.data)
+        if hasattr(form, 'musicbrainz_contact'):
+            if form.musicbrainz_contact.data is not None and form.musicbrainz_contact.data != "":
+                arm_ui_cfg.musicbrainz_contact = str(form.musicbrainz_contact.data)
+        if hasattr(form, 'discogs_token'):
+            if form.discogs_token.data is not None and form.discogs_token.data != "":
+                arm_ui_cfg.discogs_token = str(form.discogs_token.data)
+        if hasattr(form, 'enable_ai_identification'):
+            arm_ui_cfg.enable_ai_identification = (str(form.enable_ai_identification.data).strip().lower() == "true")
+        if hasattr(form, 'enable_cd_track_renaming'):
+            arm_ui_cfg.enable_cd_track_renaming = (str(form.enable_cd_track_renaming.data).strip().lower() == "true")
+        if hasattr(form, 'min_clip_duration_seconds') and form.min_clip_duration_seconds.data is not None:
+            arm_ui_cfg.min_clip_duration_seconds = int(form.min_clip_duration_seconds.data)
         db.session.commit()
         success = True
     # Masking the jinja update, otherwise an error is thrown

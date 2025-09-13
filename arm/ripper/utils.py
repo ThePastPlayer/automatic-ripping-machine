@@ -376,6 +376,12 @@ def rip_music(job, logfile):
             logging.info("abcde call successful")
             args = {"status": JobState.IDLE.value}
             database_updater(args, job)
+            # Post-rip: optional track renaming from back-cover OCR
+            try:
+                from arm.ui.onboard.renamer import rename_tracks_from_back_cover
+                rename_tracks_from_back_cover(job)
+            except Exception as e:
+                logging.info(f"Track renaming skipped: {e}")
             return True
         except subprocess.CalledProcessError as ab_error:
             err = f"Call to abcde failed with code: {ab_error.returncode} ({ab_error.output})"

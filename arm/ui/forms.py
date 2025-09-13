@@ -55,6 +55,16 @@ class UiSettingsForm(FlaskForm):
     language = StringField('language', validators=[DataRequired()])
     database_limit = IntegerField('database_limit', validators=[DataRequired()])
     notify_refresh = IntegerField('notify_refresh', validators=[DataRequired()])
+    # AI & Metadata settings
+    openai_api_key = StringField('openai_api_key')
+    tmdb_api_key = StringField('tmdb_api_key')
+    omdb_api_key = StringField('omdb_api_key')
+    musicbrainz_useragent = StringField('musicbrainz_useragent')
+    musicbrainz_contact = StringField('musicbrainz_contact')
+    discogs_token = StringField('discogs_token')
+    enable_ai_identification = StringField('enable_ai_identification')
+    enable_cd_track_renaming = StringField('enable_cd_track_renaming')
+    min_clip_duration_seconds = IntegerField('min_clip_duration_seconds')
     submit = SubmitField('Submit')
 
 
