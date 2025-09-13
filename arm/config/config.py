@@ -36,6 +36,12 @@ except Exception:
 # handle arm.yaml migration here
 # 1. Load both current and template arm.yaml
 default_cfg_path = "/opt/arm/setup/arm.yaml"
+if not os.path.isfile(default_cfg_path):
+    # Fallback to repo-relative path when not installed to /opt/arm
+    repo_root = os.path.abspath(os.path.join(os.path.dirname(__file__), os.pardir, os.pardir))
+    alt = os.path.join(repo_root, "setup", "arm.yaml")
+    if os.path.isfile(alt):
+        default_cfg_path = alt
 try:
     cur_cfg = _load_config(arm_config_path)
 except Exception:

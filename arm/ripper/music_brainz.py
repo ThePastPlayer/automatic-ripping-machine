@@ -6,7 +6,11 @@ import re
 import musicbrainzngs as mb
 import arm.config.config as cfg
 
-from discid import read, Disc
+try:
+    from discid import read, Disc  # type: ignore
+except Exception:  # noqa: BLE001
+    read = None
+    Disc = None
 
 from arm.ripper import utils as u
 import werkzeug
@@ -33,6 +37,8 @@ def get_disc_id(disc):
     return:
     identification object from discid package
     """
+    if read is None:
+        raise RuntimeError("libdiscid/discid module not available")
     return read(disc.devpath)
 
 
