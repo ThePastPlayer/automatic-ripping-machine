@@ -1,8 +1,29 @@
--r arm-dependencies/requirements.txt
-
-#requirements added for PR#551
+Flask==2.3.3
+Flask-Login==0.6.3
+Flask-Migrate==4.0.7
+Flask-SQLAlchemy==3.1.1
+WTForms==3.1.2
+Flask-WTF==1.2.1
+Jinja2==3.1.4
+SQLAlchemy==2.0.36
+alembic==1.13.3
+requests==2.32.3
+apprise==1.7.6
+prettytable==3.10.2
+psutil==6.0.0
+pyudev==0.24.3
+musicbrainzngs==0.7.1
+discid==1.1.1
+netifaces==0.11.0
+Werkzeug==3.0.4
+itsdangerous==2.2.0
+click==8.1.7
+MarkupSafe==2.1.5
+Pillow==10.4.0
+python-dotenv==1.0.1
+fuzzywuzzy==0.18.0
+python-Levenshtein==0.25.1
+waitress==2.1.2
 argparse==1.4.0
 colorama==0.4.6
-#requirements added for PR#650
 flake8==7.2.0
-waitress==2.1.2
