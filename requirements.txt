@@ -14,6 +14,7 @@ psutil==6.0.0
 pyudev==0.24.3
 musicbrainzngs==0.7.1
 netifaces==0.11.0
+bcrypt==4.2.0
 Werkzeug==3.0.4
 itsdangerous==2.2.0
 click==8.1.7
