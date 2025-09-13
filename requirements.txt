@@ -13,7 +13,6 @@ prettytable==3.10.2
 psutil==6.0.0
 pyudev==0.24.3
 musicbrainzngs==0.7.1
-discid==1.1.1
 netifaces==0.11.0
 Werkzeug==3.0.4
 itsdangerous==2.2.0
